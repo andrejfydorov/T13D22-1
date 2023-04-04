@@ -11,7 +11,7 @@ typedef enum
     ERROR
 }log_level;
 
-FILE* log_init(char *filename);
+FILE* log_init(char* filename);
 
 int logcat(FILE* log_file, char *message, log_level level);
 

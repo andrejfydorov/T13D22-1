@@ -44,13 +44,12 @@ void print_file_content(char *path, int shift) {
 }
 
 int main() {
-  char log_path[100] = "log.txt";
+  char log_path[10] = "log.txt";
   FILE* log_file = log_init(log_path);
   if (log_file == NULL){
     printf("n/a");
     return -1;
   }
-    
 
   int menu_item;
   scanf("%d", &menu_item);
@@ -61,9 +60,13 @@ int main() {
   while (menu_item != -1) {
     switch (menu_item) {
       case 1:
-        sprintf(log_message, "%s", "case = 1");
-        logcat(log_file, log_message, DEBUG);
-
+        sprintf(log_message, "%s", "case = 1"); 
+        printf("%d\n", logcat(log_file, log_message, DEBUG));
+        if(!logcat(log_file, log_message, DEBUG)) {
+          printf("dont write log message in case 1");
+          break;
+        }
+        
         scanf("%s", path);
         file = fopen(path, "r+");
 
@@ -138,7 +141,8 @@ int main() {
     scanf("%d", &menu_item);
   }
 
-  log_close(log_file);
+  if(log_close(log_file) == -1)
+    return -1;
   fclose(file);
 
   return 0;
